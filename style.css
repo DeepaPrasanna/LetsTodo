@@ -7,7 +7,7 @@ body {
   margin: 0 auto;
   text-align: center;
   background: #d6a3f7;
-  height: 800px;
+  /* height: 800px; */
   overflow-y: auto;
   color: black;
   border: 10px solid #ad3faa;
@@ -26,7 +26,7 @@ body {
   list-style: none;
   border: 2px solid royalblue;
   width: 80%;
-  /* opacity: 0; */
+  opacity: 0;
   transition: opacity 0.5s ease-in-out;
   height: 40px;
   margin: 5px auto;
@@ -84,12 +84,12 @@ body {
 }
 .container .controls button {
   width: 100%;
-  background: #fff;
+  /* background: #fff; */
   border: none;
   height: 30px;
   margin-top: 2px;
   cursor: pointer;
-  color: black;
+  color: #eaf0f1;
 }
 .controls button:focus {
   outline: 0;
@@ -105,11 +105,30 @@ body {
   background-color: #9a2bfc;
   border-radius: 10px;
 }
-.container .mycheck {
-  opacity: 1;
-  border-radius: 10px;
-}
+
 .visual {
   opacity: 1 !important;
   border-radius: 10px;
+  border: 2px solid rebeccapurple !important;
+}
+/*added responsive design*/
+
+@media only screen and (max-width: 650px) {
+  .container {
+    width: 300px;
+  }
+  .container h1 {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .container {
+    width: 200px;
+  }
+  .container h1 {
+    font-size: 12px;
+  }
+  .container .controls button {
+    font-size: 10px;
+  }
 }
