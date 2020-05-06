@@ -34,6 +34,7 @@ function addTodos() {
         enterTodoText = document.createTextNode('Please enter a todo!')
         enterTodo.appendChild(enterTodoText);
         controls.appendChild(enterTodo)
+        //the element auto destroys itself
         setTimeout(() => {
             enterTodo.remove()
         }, 2000)
