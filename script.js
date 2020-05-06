@@ -30,12 +30,17 @@ function addTodos() {
 
     if (todoText === "") {
         //add a p tag and assign a value of enter your todo
-        // let enterTodo = document.createElement('enterTodo')
-        // enterTodoText = document.createTextNode('Enter a todo')
-        // enterTodo.appendChild(enterTodoText);
-        // controls.appendChild(enterTodo)
+        let enterTodo = document.createElement('p')
+        enterTodoText = document.createTextNode('Please enter a todo!')
+        enterTodo.appendChild(enterTodoText);
+        controls.appendChild(enterTodo)
+        setTimeout(() => {
+            enterTodo.remove()
+        }, 2000)
+
     }
     else {
+        // enterTodo.remove()
         //create li
 
         let li = document.createElement('li')
