@@ -32,16 +32,26 @@ body {
   margin: 5px auto;
   text-align: left;
   background-color: #e2dff6;
+  /* position: relative; */
+  /* overflow-y: auto; */
 }
 
 .container ul li label {
   margin: 0 auto;
   vertical-align: middle;
-  height: 100%;
   line-height: 40px;
   font-size: 18px;
-}
+  position: absolute;
 
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  width: 300px;
+  white-space: nowrap;
+}
+/* .container ul li label:hover {
+  overflow: visible;
+} */
 .container ul li #check {
   -webkit-appearance: none;
   float: left;
@@ -111,6 +121,7 @@ body {
   border-radius: 10px;
   border: 2px solid rebeccapurple !important;
 }
+
 /*added responsive design*/
 
 @media only screen and (max-width: 650px) {
