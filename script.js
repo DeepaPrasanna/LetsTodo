@@ -1,14 +1,16 @@
+""
 let remove = document.getElementById('remove')
 remove.addEventListener('click', removeTodos)
-let controls = document.querySelector('.container')
-let ul = document.getElementById('list')
 
 let add = document.getElementById('add')
 add.addEventListener('click', addTodos)
 
-function removeTodos() {
-    // console.log("hi")
+let controls = document.querySelector('.container')
+let ul = document.getElementById('list')
 
+
+function removeTodos() {
+    //removing only the todos which are checked
     let li = ul.children;
     // console.log(li)
 
@@ -18,17 +20,15 @@ function removeTodos() {
             // console.log(li[index])
             ul.removeChild(li[index])
         }
-        // console.log(li[index].children[0].checked)
-
     }
-
 }
 
 function addTodos() {
     let input = document.getElementById('input')
-    var todo = input.value
-    var todoText = document.createTextNode(todo)
-    if (todo === "") {
+    var todoText = input.value
+    var todoTextNode = document.createTextNode(todoText)
+
+    if (todoText === "") {
         //add a p tag and assign a value of enter your todo
         // let enterTodo = document.createElement('enterTodo')
         // enterTodoText = document.createTextNode('Enter a todo')
@@ -52,7 +52,7 @@ function addTodos() {
         //add these elements
 
         li.appendChild(checkbox)
-        label.appendChild(todoText)
+        label.appendChild(todoTextNode)
         li.appendChild(label)
         ul.insertBefore(li, ul.childNodes[0])
 
@@ -61,4 +61,9 @@ function addTodos() {
         }, 2)
         input.value = ""
     }
+
+    window.localStorage.setItem("key", todoText);
+
+    // console.log((parseInt(key)) += 1)
+
 }
