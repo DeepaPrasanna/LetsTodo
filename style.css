@@ -1,7 +1,158 @@
+:root {
+  --main-bg-color: rgb(172, 0, 255);
+  --secondary-bg-color: #d6a3f7;
+  --tertiary-bg-color: #e2dff6;
+  --add-button-color: #b25dfd;
+  --remove-button-color: #9a2bfc;
+  --button-text-color: #eaf0f1;
+  --removed-text-color: rgba(0, 0, 0, 0.3);
+  --main-font-color: black;
+}
 body {
-  background-image: linear-gradient(
-    to right,
-    rgb(144, 203, 238),
-    rgb(224, 145, 80)
-  );
+  background-color: var(--main-bg-color);
+}
+.container {
+  width: 500px;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--secondary-bg-color);
+  /* height: 800px; */
+  overflow-y: auto;
+  color: var(--main-font-color);
+  border: 10px solid #ad3faa;
+  border-radius: 10px;
+}
+.container h1 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+}
+.container ul {
+  margin-top: 50px;
+  padding-left: 0;
+}
+.container ul li {
+  list-style: none;
+  width: 80%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  height: 40px;
+  margin: 5px auto;
+  text-align: left;
+  background-color: var(--tertiary-bg-color);
+}
+
+.container ul li label {
+  margin: 0 auto;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 18px;
+  position: absolute;
+
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  width: 300px;
+  white-space: nowrap;
+}
+/* .container ul li label:hover {
+  overflow: visible;
+} */
+.container ul li #check {
+  -webkit-appearance: none;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border: 2px solid black;
+  position: relative;
+  outline: 0;
+}
+.container ul li #check:checked:after {
+  content: "\2714";
+  font-size: 20px;
+  position: absolute;
+  top: 0px;
+  left: 7px;
+  color: var(--main-font-color);
+}
+.container ul li input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: var(--removed-text-color);
+}
+.container .controls {
+  width: 60%;
+  margin: auto;
+  color: var(--main-font-color);
+}
+.container .controls #input {
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  padding-left: 5px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border: 2px solid rebeccapurple;
+  border-radius: 10px;
+}
+.container .controls #input:focus {
+  outline: 0;
+}
+.container .controls button {
+  width: 100%;
+  /* background: #fff; */
+  border: none;
+  height: 30px;
+  margin-top: 2px;
+  cursor: pointer;
+  color: var(--button-text-color);
+}
+.controls button:focus {
+  outline: 0;
+}
+.controls button:hover {
+  transform: scale(1.05);
+}
+.controls #add {
+  background-color: var(--add-button-color);
+  border-radius: 10px;
+}
+.controls #remove {
+  background-color: var(--remove-button-color);
+  border-radius: 10px;
+}
+
+.visual {
+  opacity: 1 !important;
+  border-radius: 10px;
+  border: 2px solid rebeccapurple !important;
+}
+
+/*added responsive design*/
+
+@media only screen and (max-width: 650px) {
+  .container {
+    width: 300px;
+  }
+  .container h1 {
+    font-size: 20px;
+  }
+  .container .controls #input {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .container {
+    width: 200px;
+  }
+  .container h1 {
+    font-size: 12px;
+  }
+  .container .controls button {
+    font-size: 10px;
+  }
+  .container .controls #input {
+    font-size: 15px;
+  }
 }

@@ -6,8 +6,34 @@
     <title>Todo App</title>
     <link rel="stylesheet" href="style.css" class="css" />
   </head>
+
   <body>
-    <p>hello there</p>
+    <div class="container">
+      <!--controls for input todo, add to the list and remove the completed ones-->
+      <div class="controls">
+        <h1>My Todo List</h1>
+
+        <input type="text" id="input" /><br />
+
+        <button type="button" id="add">Add new Todo</button>
+        <button type="button" id="remove">Remove done Todo</button>
+      </div>
+
+      <!--list showing the todos-->
+      <ul id="list">
+        <!-- <li class="visual">
+          <input type="checkbox" name="checkbox" id="check" /><label
+            >Go to park</label
+          >
+        </li>
+      
+        <li class="visual">
+          <input type="checkbox" name="checkbox" id="check" checked /><label
+            >write code</label
+          >
+        </li>
+      --></ul>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
