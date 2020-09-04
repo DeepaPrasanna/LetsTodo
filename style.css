@@ -1,9 +1,9 @@
 :root {
-  --main-bg-color: rgb(172, 0, 255);
-  --secondary-bg-color: #d6a3f7;
-  --tertiary-bg-color: #e2dff6;
-  --add-button-color: #b25dfd;
-  --remove-button-color: #9a2bfc;
+  --main-bg-color: #d3de32;
+  --secondary-bg-color: #cbeaed;
+  --tertiary-bg-color: #ffffdd;
+  --add-button-color: #006a71;
+  --remove-button-color: #006a71;
   --button-text-color: #eaf0f1;
   --removed-text-color: rgba(0, 0, 0, 0.3);
   --main-font-color: black;
@@ -20,7 +20,7 @@ body {
   /* height: 800px; */
   overflow-y: auto;
   color: var(--main-font-color);
-  border: 10px solid #ad3faa;
+  border: 10px solid #006a71;
   border-radius: 10px;
 }
 .container h1 {
@@ -93,7 +93,7 @@ body {
   padding-left: 5px;
   box-sizing: border-box;
   margin-bottom: 20px;
-  border: 2px solid rebeccapurple;
+  border: 2px solid #006a71;
   border-radius: 10px;
 }
 .container .controls #input:focus {
@@ -126,7 +126,7 @@ body {
 .visual {
   opacity: 1 !important;
   border-radius: 10px;
-  border: 2px solid rebeccapurple !important;
+  border: 2px solid #006a71 !important;
 }
 
 /*added responsive design*/
