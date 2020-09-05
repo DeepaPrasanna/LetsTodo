@@ -43,6 +43,8 @@ function addTodos() {
 
     let input = document.getElementById('input')
     var todoText = input.value
+    // remove all the leading and trailing  whitespaces
+    todoText = todoText.replace(/(^\s+|\s+$)/g,'')
       
     // Prompt the user to enter a todo again if he enters an empty todo
     if (todoText === "") {
