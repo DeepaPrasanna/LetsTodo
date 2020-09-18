@@ -7,19 +7,37 @@ add.addEventListener('click', addTodos)
 let controls = document.querySelector('.container')
 let ul = document.getElementById('list')
 
-const KEY = "TODO_KEY"
 todos = []
+retrievedTodos = []
 
-//check for any todos present in local storage
-retrivedTodos = JSON.parse(localStorage.getItem(KEY))
-if (retrivedTodos)
-{
-    todos = retrivedTodos
+
+//check for any todos present in the database
+async function fetchTodos() {
+
+    let response = await fetch('http://127.0.0.1:5000/todos');
+
+    if (response.status === 200) {
+        let data = await response.json();
+        // console.log(data.todo)
+        for (const key in data.todo){
+            // console.log(data.todo[key].title)
+            let retrievedTodo = data.todo[key].title
+            retrievedTodos.push(retrievedTodo)
+           
+        }
+        if (retrievedTodos)
+        {
+        todos = retrievedTodos
+        }
+        displayTodos()
+    }
 }
 
 
-function removeTodos() {
-    
+
+
+async function removeTodos() {
+    let retrievedIndex
     //removing only the todos which are checked
     let li = ul.children;
 
@@ -28,18 +46,44 @@ function removeTodos() {
         while (li[index] && li[index].children[0].checked) {
             
             text = li[index].children[1].innerText
-            removeIndex = todos.indexOf(text)
+            // console.log(text)
+            removeIndex = retrievedTodos.indexOf(text)
+            // console.log(removeIndex)
             todos.splice(removeIndex,1)
 
-            //update the local storage
-            localStorage.setItem(KEY, JSON.stringify(todos))
-
             ul.removeChild(li[index])
-        }
+
+            // call the get todos api again
+            let response = await fetch('http://127.0.0.1:5000/todos');
+
+            if (response.status === 200) {
+                let data = await response.json();
+                // console.log(data.todo)
+                for (const key in data.todo){
+                    // console.log(data.todo[key].title)
+                    let retrievedTodo = data.todo[key].title
+                    if (retrievedTodo === text)
+                    {
+                        retrievedIndex = data.todo[key].id
+                        // console.log(retrievedIndex)
+                        break
+                    }
+                
+                
+                }
+            }
+
+        await fetch(`http://127.0.0.1:5000/todos/${retrievedIndex}`, { 
+            method: 'DELETE', 
+            headers: { 
+                'Content-type': 'application/json'
+            } 
+        }); 
+    }
     }
 }
 
-function addTodos() {
+async function addTodos() {
 
     let input = document.getElementById('input')
     var todoText = input.value
@@ -53,35 +97,46 @@ function addTodos() {
     }
     else {
     
-        // check if the browser supports local storage
-        if(typeof(Storage) !== "undefined") {
+        // call the api
+        let response = await fetch('http://127.0.0.1:5000/todos',{ 
+      
+            // Adding method type 
+            method: "POST", 
+              
+            // Adding body or contents to send 
+            body: JSON.stringify({ 
+                title: todoText, 
+            }), 
+              
+            // Adding headers to the request 
+            headers: { 
+                "Content-type": "application/json"
+            } 
+        });
 
-            // store the todo in an array
-            todos.push(todoText)
+        if (response.status === 200) {
 
-            // store the todo data in local storage
-            localStorage.setItem(KEY, JSON.stringify(todos))
-        } else {
-            alert("Sorry, your browser does not support web storage...")
+        // add in the todos array and then display
+        todos.push(todoText)
+
+          // render all the todos
+        displayTodos();
         }
 
-        // render all the todos
-        displayTodos();
+      
   
     }
 }
 
 function displayTodos()
 {
-    retrivedData = JSON.parse(localStorage.getItem(KEY))
-    
-   // As long as <ul> has a child node, remove it
-    while (list.hasChildNodes()) {  
-        list.removeChild(list.firstChild);
+//  As long as <ul> has a child node, remove it
+    while (ul.hasChildNodes()) {  
+        ul.removeChild(list.firstChild);
     }
-    
-    retrivedData.forEach(element => {
-         
+    // console.log(retrievedTodos)
+    todos.forEach(element => {
+       
         //create li
          let li = document.createElement('li')
 
@@ -115,4 +170,4 @@ function displayTodos()
 }
 
 // on window loading, display all the todos in the local storage, if any
-window.onload = displayTodos()
+window.onload = fetchTodos()
