@@ -18,18 +18,14 @@ async function fetchTodos() {
 
     if (response.status === 200) {
         let data = await response.json();
-        // console.log(data.todo)
-        for (const key in data.todo){
-            // console.log(data.todo[key].title)
-            let retrievedTodo = data.todo[key].title
-            retrievedTodos.push(retrievedTodo)
-           
-        }
+        retrievedTodos = data.todo
+   
         if (retrievedTodos)
         {
-        todos = retrievedTodos
+            todos = retrievedTodos
+            displayTodos()
         }
-        displayTodos()
+        
     }
 }
 
@@ -37,43 +33,22 @@ async function fetchTodos() {
 
 
 async function removeTodos() {
-    let retrievedIndex
+
     //removing only the todos which are checked
     let li = ul.children;
 
     for (let index = 0; index < li.length; index++) {
 
         while (li[index] && li[index].children[0].checked) {
-            
-            text = li[index].children[1].innerText
-            // console.log(text)
-            removeIndex = retrievedTodos.indexOf(text)
-            // console.log(removeIndex)
-            todos.splice(removeIndex,1)
+            id = li[index].getAttribute("data-id")
 
+            text = li[index].children[1].innerText
+          
+            removeIndex = retrievedTodos.indexOf(text)
+            todos.splice(removeIndex,1)
             ul.removeChild(li[index])
 
-            // call the get todos api again
-            let response = await fetch('http://127.0.0.1:5000/todos');
-
-            if (response.status === 200) {
-                let data = await response.json();
-                // console.log(data.todo)
-                for (const key in data.todo){
-                    // console.log(data.todo[key].title)
-                    let retrievedTodo = data.todo[key].title
-                    if (retrievedTodo === text)
-                    {
-                        retrievedIndex = data.todo[key].id
-                        // console.log(retrievedIndex)
-                        break
-                    }
-                
-                
-                }
-            }
-
-        await fetch(`http://127.0.0.1:5000/todos/${retrievedIndex}`, { 
+        await fetch(`http://127.0.0.1:5000/todos/${id}`, { 
             method: 'DELETE', 
             headers: { 
                 'Content-type': 'application/json'
@@ -84,7 +59,6 @@ async function removeTodos() {
 }
 
 async function addTodos() {
-
     let input = document.getElementById('input')
     var todoText = input.value
     // remove all the leading and trailing  whitespaces
@@ -113,18 +87,14 @@ async function addTodos() {
                 "Content-type": "application/json"
             } 
         });
-
+        // console.log(response)
         if (response.status === 200) {
-
-        // add in the todos array and then display
-        todos.push(todoText)
-
+            await response.json().then(data=>{ 
+                    todos.push(data["todo"])
+        })
           // render all the todos
         displayTodos();
         }
-
-      
-  
     }
 }
 
@@ -134,12 +104,10 @@ function displayTodos()
     while (ul.hasChildNodes()) {  
         ul.removeChild(list.firstChild);
     }
-    // console.log(retrievedTodos)
     todos.forEach(element => {
-       
         //create li
          let li = document.createElement('li')
-
+         li.setAttribute("data-id",element.id)
          //create checkbox
          let checkbox = document.createElement('input')
          checkbox.type = 'checkbox'
@@ -150,16 +118,13 @@ function displayTodos()
          let label = document.createElement('label')
  
          //add these elements
- 
          li.appendChild(checkbox)
-         //retrive the todo text from the local storage
-        //  let getTodoText = localStorage.getItem(KEY);
-         var todoTextNode = document.createTextNode(element)
+
+         var todoTextNode = document.createTextNode(element.title)
  
          label.appendChild(todoTextNode)
          li.appendChild(label)
          ul.insertBefore(li, ul.childNodes[0])
- 
          setTimeout(() => {
              li.className = 'visual'
          }, 2)
@@ -169,5 +134,5 @@ function displayTodos()
     input.value = ""
 }
 
-// on window loading, display all the todos in the local storage, if any
+// on window loading, display all the todos in the database, if any
 window.onload = fetchTodos()
