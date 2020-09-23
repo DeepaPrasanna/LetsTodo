@@ -14,7 +14,7 @@ retrievedTodos = []
 //check for any todos present in the database
 async function fetchTodos() {
 
-    let response = await fetch('http://127.0.0.1:5000/todos');
+    let response = await fetch('https://lets-todo-backend.herokuapp.com/todos');
 
     if (response.status === 200) {
         let data = await response.json();
@@ -48,7 +48,7 @@ async function removeTodos() {
             todos.splice(removeIndex,1)
             ul.removeChild(li[index])
 
-        await fetch(`http://127.0.0.1:5000/todos/${id}`, { 
+        await fetch(`https://lets-todo-backend.herokuapp.com/${id}`, { 
             method: 'DELETE', 
             headers: { 
                 'Content-type': 'application/json'
@@ -72,7 +72,7 @@ async function addTodos() {
     else {
     
         // call the api
-        let response = await fetch('http://127.0.0.1:5000/todos',{ 
+        let response = await fetch('https://lets-todo-backend.herokuapp.com/todos',{ 
       
             // Adding method type 
             method: "POST", 
