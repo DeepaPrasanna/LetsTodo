@@ -48,7 +48,7 @@ async function removeTodos() {
             todos.splice(removeIndex,1)
             ul.removeChild(li[index])
 
-        await fetch(`https://lets-todo-backend.herokuapp.com/${id}`, { 
+        await fetch(`https://lets-todo-backend.herokuapp.com/todos/${id}`, { 
             method: 'DELETE', 
             headers: { 
                 'Content-type': 'application/json'
